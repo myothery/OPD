@@ -1,4 +1,4 @@
-package main
+package grapch
 
 import (
 	"encoding/json"
@@ -24,8 +24,8 @@ type CircleData struct {
 }
 
 type Point struct {
-	X float64 `json:"x"`
-	Y float64 `json:"y"`
+	X float64 `json:"X"`
+	Y float64 `json:"Y"`
 }
 
 func generateCircles(n int, minX, maxX, minR, maxR float64) []Circle {
