@@ -5,14 +5,11 @@ import (
 	"fmt"
 	"math"
 	"os"
+
+	"github.com/se1lzor/OPD/internal/common"
 )
 
-type Point struct {
-	X float64 `json:"X"`
-	Y float64 `json:"Y"`
-}
-
-func loadPointFromJson(filename string) ([]Point, error) {
+func loadPointFromJson(filename string) ([]common.Point, error) {
 	data, err := os.ReadFile(filename)
 
 	if err != nil {
@@ -23,7 +20,7 @@ func loadPointFromJson(filename string) ([]Point, error) {
 		return nil, fmt.Errorf("Ошибка при чтении файла: %v", err)
 	}
 
-	points := []Point{}
+	points := []common.Point{}
 
 	err = json.Unmarshal(data, &points)
 
@@ -34,7 +31,7 @@ func loadPointFromJson(filename string) ([]Point, error) {
 	return points, nil
 }
 
-func diameterFromCircle(point1, point2, point3 Point) (diameter float64, err error) {
+func diameterFromCircle(point1, point2, point3 common.Point) (diameter float64, err error) {
 	x1 := point1.X
 	y1 := point1.Y
 	x2 := point2.X

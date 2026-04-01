@@ -1,4 +1,4 @@
-package grapch
+package main
 
 import (
 	"encoding/json"
@@ -8,29 +8,16 @@ import (
 	"os"
 	"time"
 
+	"github.com/se1lzor/OPD/internal/common"
+
 	"gonum.org/v1/plot"
 	"gonum.org/v1/plot/plotter"
 	"gonum.org/v1/plot/vg"
 )
 
-type Circle struct {
-	X, R float64
-}
-
-type CircleData struct {
-	CenterX float64 `json:"center_x"`
-	Radius  float64 `json:"radius"`
-	Points  []Point `json:"top_points"`
-}
-
-type Point struct {
-	X float64 `json:"X"`
-	Y float64 `json:"Y"`
-}
-
-func generateCircles(n int, minX, maxX, minR, maxR float64) []Circle {
+func generateCircles(n int, minX, maxX, minR, maxR float64) []common.Circle {
 	rand.Seed(time.Now().UnixNano())
-	var circles []Circle
+	var circles []common.Circle
 	attempts := 0
 	const maxAttempts = 20000
 
@@ -49,13 +36,13 @@ func generateCircles(n int, minX, maxX, minR, maxR float64) []Circle {
 			}
 		}
 		if ok {
-			circles = append(circles, Circle{X: x, R: r})
+			circles = append(circles, common.Circle{X: x, R: r})
 		}
 	}
 	return circles
 }
 
-func circleToXYClosed(c Circle, points int) plotter.XYs {
+func circleToXYClosed(c common.Circle, points int) plotter.XYs {
 	xy := make(plotter.XYs, points+1)
 	for i := 0; i < points; i++ {
 		t := 2 * math.Pi * float64(i) / float64(points)
@@ -66,8 +53,8 @@ func circleToXYClosed(c Circle, points int) plotter.XYs {
 	return xy
 }
 
-func generateTopPoints(c Circle, count int) []Point {
-	points := make([]Point, count)
+func generateTopPoints(c common.Circle, count int) []common.Point {
+	points := make([]common.Point, count)
 	for i := 0; i < count; i++ {
 		t := rand.Float64() * math.Pi
 		points[i].X = c.X + c.R*math.Cos(t)
@@ -76,10 +63,10 @@ func generateTopPoints(c Circle, count int) []Point {
 	return points
 }
 
-func exportToJSON(circles []Circle, filename string) error {
-	var data []CircleData
+func exportToJSON(circles []common.Circle, filename string) error {
+	var data []common.CircleData
 	for _, c := range circles {
-		cd := CircleData{
+		cd := common.CircleData{
 			CenterX: c.X,
 			Radius:  c.R,
 			Points:  generateTopPoints(c, 3),
