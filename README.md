@@ -194,7 +194,7 @@ gonum.org/v1/plot
 
 Результат сохраняется в файл:
 
-circles_with_points.png
+`circles_with_points.png`
 
 ## ⚙️ Обработка данных
 
@@ -229,14 +229,16 @@ circles_with_points.png
 Затем вычисляется радиус как расстояние от центра до точки.
 
 После этого:
-
+```go
 diameter = radius * 2
+```
+
 ⚠️ Проверка ошибки
 
 Если три точки лежат на одной прямой:
-
+```go
 determinantA == 0
-
+```
 то окружность построить невозможно.
 
 ### 🔄 Округление результатов
@@ -288,15 +290,17 @@ go run generator/main.go
 ```
 Будут созданы файлы:
 
-circles.json
-circles_with_points.png
-3. Запустить обработчик
+`circles.json`
+`circles_with_points.png`
+### 3. Запустить обработчик
+```bash
 go run process/main.go
-
+```
 Введите имя файла:
 ```bash
 circles
 ```
+
 📌 Пример вывода
 Загружено окружностей: 8
 
