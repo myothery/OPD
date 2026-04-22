@@ -68,8 +68,9 @@ X — положение по оси X
 Y — положение по оси Y
 
 Применяется для задания точек на окружности и выполнения геометрических вычислений.
+
+### Circle
 ```go
-Circle
 type Circle struct {
     X, R float64
 }
@@ -83,8 +84,8 @@ X — координату центра окружности по оси X
 R — радиус окружности
 
 Используется на этапе генерации окружностей.
+### CircleData
 ```go
-CircleData
 type CircleData struct {
     CenterX float64
     Radius  float64
